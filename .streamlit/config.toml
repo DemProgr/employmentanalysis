@@ -1,0 +1,13 @@
+[server]
+# Отключаем наблюдение за файлами, вызывающее ошибку inotify
+enableWatchdog = false
+
+# (ОПЦИОНАЛЬНО) Дополнительный черный список папок для наблюдения
+folderWatchBlacklist = [
+    "data",
+    "models",
+    "models_enhanced",
+    "__pycache__",
+    ".git",
+    ".streamlit"
+]
