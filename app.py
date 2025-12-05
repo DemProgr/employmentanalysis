@@ -142,6 +142,8 @@ st.markdown("""
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         backdrop-filter: blur(10px);
+        background: #68c5ed;
+background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 1) 91%);
     }
     
     /* Кнопки */
@@ -297,7 +299,9 @@ st.markdown("""
 
 # Заголовок
 st.markdown("""
-<div class="main-header">
+<div class="main-header" style="background: #00ffff;
+background: #fc6d6d;
+background: linear-gradient(90deg,rgba(252, 109, 109, 1) 26%, rgba(99, 135, 255, 1) 91%); color: #05060f; border-radius: 1em;">
     Аналитическая система трудоустройства выпускников Беларуси
 </div>
 """, unsafe_allow_html=True)
@@ -2514,7 +2518,8 @@ st.markdown("""
     <div style="margin-top: 1rem;">
         <small>
             На основе реальных данных с HH API • Машинное обучение • Аналитика в реальном времени<br>
-            Система разработана для поддержки карьерного развития выпускников и оптимизации работы университетов
+            Система разработана для поддержки карьерного развития выпускников и оптимизации работы университетов <br>
+            Если возникла проблема, например данные не загружаются, то свяжитесь с владельцем проекта: demeshkodd@mail.ru
         </small>
     </div>
     <div style="margin-top: 1rem; color: #e0e0e0;">
@@ -2523,3 +2528,4 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
