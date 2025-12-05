@@ -59,36 +59,36 @@ st.markdown("""
         background-color: #f8f9fa;
     }
     
-    /* Единый шрифт для всего приложения */
-    * {
-        font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
-    }
-    
     /* Заголовки */
     .main-header {
         font-size: 2.8rem;
         font-weight: 700;
-        color: #1a237e;
+        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-align: center;
         margin-bottom: 1.5rem;
         padding: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         letter-spacing: 0.5px;
     }
     
     .section-header {
         font-size: 1.8rem;
         font-weight: 600;
-        color: #1a237e;
+        color: #2c3e50;
         margin: 2rem 0 1rem 0;
         padding-bottom: 0.5rem;
         border-bottom: 3px solid #1a237e;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     .subsection-header {
         font-size: 1.4rem;
         font-weight: 600;
-        color: #2c3e50;
+        color: #34495e;
         margin: 1.5rem 0 0.8rem 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     /* Карточки метрик */
@@ -133,18 +133,15 @@ st.markdown("""
     }
     
     .sidebar-title {
-        
         font-size: 1.5rem;
         font-weight: 700;
-        color: black;
+        color: #ffffff;
         text-align: center;
         margin-bottom: 2rem;
         padding: 1rem;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         backdrop-filter: blur(10px);
-       background: #68c5ed;
-background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 1) 91%);
     }
     
     /* Кнопки */
@@ -158,7 +155,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         transition: all 0.3s ease;
         width: 100%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        
     }
     
     .stButton>button:hover {
@@ -175,7 +171,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         border-left: 4px solid #1a237e;
         margin: 1rem 0;
         animation: slideIn 0.5s ease-out;
-        color: #2c3e50;
     }
     
     .success-box {
@@ -185,7 +180,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         padding: 1.5rem;
         margin: 1rem 0;
         border-left: 4px solid #388e3c;
-        color: #2c3e50;
     }
     
     .warning-box {
@@ -195,7 +189,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         padding: 1.5rem;
         margin: 1rem 0;
         border-left: 4px solid #f57c00;
-        color: #2c3e50;
     }
     
     @keyframes slideIn {
@@ -209,7 +202,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         background-color: #f5f5f5;
         padding: 5px;
         border-radius: 8px;
-            
     }
     
     .stTabs [data-baseweb="tab"] {
@@ -219,8 +211,6 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         font-weight: 600;
         transition: all 0.3s ease;
         margin: 2px;
-        color: #2c3e50;
-            
     }
     
     .stTabs [aria-selected="true"] {
@@ -234,7 +224,7 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        animation: fadeIn 3s ease-out;
+        animation: fadeIn 0.6s ease-out;
     }
     
     /* Графики контейнеры */
@@ -244,45 +234,27 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         margin: 1rem 0;
-        transition: all 1s ease;
-        color: #2c3e50;
+        transition: all 0.3s ease;
     }
     
     .plot-container:hover {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
     
-    /* Футер с градиентом */
+    /* Футер */
     .footer {
         text-align: center;
         padding: 2rem;
         margin-top: 3rem;
-        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
         color: white;
         border-radius: 15px;
         animation: fadeIn 0.8s ease-out;
-        font-family: 'Roboto', sans-serif;
-    }
-    
-    .footer h3 {
-        color: white;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-    
-    .footer p {
-        color: white;
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .footer small {
-        color: rgba(255, 255, 255, 0.9);
     }
     
     /* Анимация появления элементов */
     .animate-item {
-        animation: fadeInUp 2s ease-out;
+        animation: fadeInUp 0.5s ease-out;
         animation-fill-mode: both;
     }
     
@@ -314,77 +286,29 @@ background: linear-gradient(90deg,rgba(104, 197, 237, 1) 26%, rgba(51, 96, 242, 
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         border-top: 4px solid #1a237e;
         transition: all 0.3s ease;
-        color: #2c3e50;
     }
     
     .feature-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     }
-    
-    /* Стили для обычного текста */
-    .stMarkdown, .stText, .stWrite {
-        color: #2c3e50 !important;
-    }
-    
-    /* Стили для заголовков внутри контейнеров */
-    .plot-container h1,
-    .plot-container h2,
-    .plot-container h3,
-    .plot-container h4,
-    .plot-container h5,
-    .plot-container h6,
-    .plot-container p,
-    .plot-container span,
-    .plot-container div {
-        color: #2c3e50 !important;
-    }
-    
-    /* Стили для метрик в боковой панели */
-    .sidebar-metric {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.8rem;
-        border-radius: 8px;
-        margin: 0.5rem 0;
-        border-left: 3px solid #ffffff;
-    }
-    .sidebar-metric-value {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #ffffff;
-    }
-    .sidebar-metric-label {
-        font-size: 0.9rem;
-        color: #ffffff;
-    }
-    
-    /* Стили для текста в боковой панели */
-    .sidebar .stMarkdown,
-    .sidebar .stText,
-    .sidebar .stWrite {
-        color: white !important;
-            
-        
-    }
 </style>
 """, unsafe_allow_html=True)
 
 # Заголовок
 st.markdown("""
-<div class="main-header" style="background: #00ffff;
-background: #fc6d6d;
-background: linear-gradient(90deg,rgba(252, 109, 109, 1) 26%, rgba(99, 135, 255, 1) 91%); color: #05060f; border-radius: 1em;">
+<div class="main-header">
     Аналитическая система трудоустройства выпускников Беларуси
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-<div style='text-align: center; margin-bottom: 2rem; '>
-    <p style='font-size: 1.2rem; color: #2c3e50;'>
+<div style='text-align: center; margin-bottom: 2rem;'>
+    <p style='font-size: 1.2rem; color: #5f6368;'>
         <strong>Мониторинг карьерных траекторий • Прогнозирование трудоустройства • Аналитическая поддержка вузов</strong>
     </p>
-    <p style='font-size: 1rem; color: #5f6368; font-style: italic;'>
-        На основе данных и ML анализа 
+    <p style='font-size: 1rem; color: #80868b; font-style: italic;'>
+        На основе реалистичных данных и ML анализа с поддержкой до 2035 года
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -520,6 +444,28 @@ with st.sidebar:
         st.success("Данные загружены")
         
         # Метрики в боковой панели
+        metric_style = """
+        <style>
+        .sidebar-metric {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            border-left: 3px solid #ffffff;
+        }
+        .sidebar-metric-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .sidebar-metric-label {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+        </style>
+        """
+        st.markdown(metric_style, unsafe_allow_html=True)
+        
         st.markdown(f"""
         <div class="sidebar-metric">
             <div class="sidebar-metric-value">{len(vacancies_df):,}</div>
@@ -633,7 +579,7 @@ if page == "Обзор системы":
     col1, col2 = st.columns(2)
     
     with col1:
-        # st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Распределение вакансий по категориям**")
         if 'category' in vacancies_df.columns:
             category_counts = vacancies_df['category'].value_counts()
@@ -643,8 +589,10 @@ if page == "Обзор системы":
             if fig:
                 st.pyplot(fig)
                 plt.close()
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Трудоустройство по факультетам**")
         if 'faculty' in graduates_df.columns and 'employed' in graduates_df.columns:
             faculty_employment = graduates_df.groupby('faculty')['employed'].mean().sort_values(ascending=False) * 100
@@ -654,6 +602,7 @@ if page == "Обзор системы":
             if fig:
                 st.pyplot(fig)
                 plt.close()
+        st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Анализ выпускников":
     st.markdown('<div class="section-header">Детальный анализ данных выпускников</div>', unsafe_allow_html=True)
@@ -756,6 +705,7 @@ elif page == "Анализ выпускников":
     col1, col2 = st.columns(2)
     
     with col1:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Распределение GPA**")
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.hist(filtered_df['gpa'], bins=20, alpha=0.7, color='#1a237e', edgecolor='black')
@@ -764,8 +714,10 @@ elif page == "Анализ выпускников":
         ax.set_title('Распределение среднего балла', fontweight='bold')
         ax.grid(alpha=0.3)
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Стажировки и проекты**")
         fig, ax = plt.subplots(figsize=(10, 6))
         
@@ -794,6 +746,7 @@ elif page == "Анализ выпускников":
         
         plt.tight_layout()
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Влияние факторов на трудоустройство
     st.markdown('<div class="subsection-header">Влияние факторов на трудоустройство</div>', unsafe_allow_html=True)
@@ -811,6 +764,7 @@ elif page == "Анализ выпускников":
                    square=True, fmt='.2f', cbar_kws={"shrink": .8}, ax=ax)
         ax.set_title('Корреляционная матрица факторов трудоустройства', fontweight='bold')
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Анализ вакансий":
     st.markdown('<div class="section-header">Анализ реальных вакансий с HH API</div>', unsafe_allow_html=True)
@@ -878,6 +832,7 @@ elif page == "Анализ вакансий":
     col1, col2 = st.columns(2)
     
     with col1:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Зарплаты по категориям**")
         if 'category' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns:
             salary_by_category = vacancies_df.groupby('category')['salary_avg_byn'].mean().sort_values(ascending=False)
@@ -896,8 +851,10 @@ elif page == "Анализ вакансий":
             
             plt.tight_layout()
             st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Требуемый опыт работы**")
         if 'experience' in vacancies_df.columns:
             experience_counts = vacancies_df['experience'].value_counts()
@@ -907,6 +864,7 @@ elif page == "Анализ вакансий":
                       colors=plt.cm.Set3(np.linspace(0, 1, len(experience_counts))))
                 ax.set_title('Требования к опыту работы', fontweight='bold')
             st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ДОБАВЛЕННЫЕ СТРАНИЦЫ
 elif page == "Тренды":
@@ -937,6 +895,7 @@ elif page == "Тренды":
         ax.set_ylim(0, 1)
         ax.grid(True, alpha=0.3)
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="plot-container">', unsafe_allow_html=True)
@@ -947,6 +906,7 @@ elif page == "Тренды":
         ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
         ax.grid(True, alpha=0.3)
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Факторный анализ
     st.markdown('<div class="subsection-header">Факторный анализ</div>', unsafe_allow_html=True)
@@ -977,6 +937,7 @@ elif page == "Тренды":
             
             plt.tight_layout()
             st.pyplot(fig)
+            st.markdown('</div>', unsafe_allow_html=True)
         
         with col2:
             st.markdown('<div class="plot-container">', unsafe_allow_html=True)
@@ -996,6 +957,7 @@ elif page == "Тренды":
             
             plt.tight_layout()
             st.pyplot(fig)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "География":
     st.markdown('<div class="section-header">Географический анализ</div>', unsafe_allow_html=True)
@@ -1037,6 +999,7 @@ elif page == "География":
         
         plt.tight_layout()
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="plot-container">', unsafe_allow_html=True)
@@ -1065,6 +1028,7 @@ elif page == "География":
         
         plt.tight_layout()
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Распределение выпускников
     st.markdown('<div class="subsection-header">Распределение выпускников</div>', unsafe_allow_html=True)
@@ -1089,6 +1053,7 @@ elif page == "География":
         
         ax.set_title('Географическое распределение выпускников', fontweight='bold')
         st.pyplot(fig)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
@@ -1111,6 +1076,7 @@ elif page == "География":
         
         stats_df = pd.DataFrame(city_stats)
         st.dataframe(stats_df, use_container_width=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Анализ по университетам - ИСПРАВЛЕННЫЙ ВАРИАНТ
     st.markdown('<div class="subsection-header">Анализ по университетам</div>', unsafe_allow_html=True)
@@ -1232,6 +1198,7 @@ elif page == "География":
     real_universities_in_data = [uni for uni in corrected_df['university'].unique() if uni in REAL_UNIVERSITIES]
     university_options = ['Все реальные университеты'] + sorted(real_universities_in_data)
     selected_university = st.selectbox("Выберите университет:", university_options)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     if selected_university != 'Все реальные университеты':
         filtered_data = corrected_df[corrected_df['university'] == selected_university]
@@ -1316,7 +1283,7 @@ elif page == "География":
             if selected_university != 'Все реальные университеты' and len(filtered_data) > 10:
                 uni_info = REAL_UNIVERSITIES[selected_university]
                 
-                st.markdown(f'<div class="subsection-header">Детальная статистика по {selected_university}</div>', unsafe_allow_html=True)
+                st.markdown('<div class="subsection-header">Детальная статистика по {selected_university}</div>', unsafe_allow_html=True)
                 st.info(f"**Специализация:** {uni_info['specialization']} | **Город:** {uni_info['city']}")
                 
                 col1, col2 = st.columns(2)
@@ -1388,6 +1355,7 @@ elif page == "География":
                                                          colors=colors)
                         ax.set_title(f'Распределение по факультетам\n{selected_university}', fontweight='bold')
                         st.pyplot(fig)
+                        st.markdown('</div>', unsafe_allow_html=True)
                     
                     with col4:
                         # Таблица с деталями по факультетам
@@ -1407,6 +1375,7 @@ elif page == "География":
                         
                         faculty_df = pd.DataFrame(faculty_stats)
                         st.dataframe(faculty_df, use_container_width=True)
+                        st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.info("Нет данных для отображения статистики по университетам")
     else:
@@ -1481,6 +1450,7 @@ elif page == "ML Анализ":
                 st.success("Модель обучена и готова")
             else:
                 st.warning("Модель не обучена")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
@@ -1493,6 +1463,7 @@ elif page == "ML Анализ":
             st.success("Модель обучена и готова к использованию")
         else:
             st.warning("Модель не обучена")
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Обучение моделей
     st.markdown('<div class="subsection-header">Обучение ML моделей</div>', unsafe_allow_html=True)
@@ -1538,6 +1509,7 @@ elif page == "ML Анализ":
                                     for feat in basic_features:
                                         if feat in predictor.feature_names:
                                             st.write(f"• {feat}")
+                                    st.markdown('</div>', unsafe_allow_html=True)
                                 
                                 with col2:
                                     st.markdown('<div class="info-box">', unsafe_allow_html=True)
@@ -1547,6 +1519,7 @@ elif page == "ML Анализ":
                                     
                                     if len(engineered_features) > 10:
                                         st.write(f"... и еще {len(engineered_features) - 10}")
+                                    st.markdown('</div>', unsafe_allow_html=True)
                             
                             st.rerun()
                         else:
@@ -1657,6 +1630,7 @@ elif page == "ML Анализ":
                 
                 plt.tight_layout()
                 st.pyplot(fig)
+                st.markdown('</div>', unsafe_allow_html=True)
                 
                 # ГРУППИРОВКА ПРИЗНАКОВ ПО КАТЕГОРИЯМ
                 st.markdown('<div class="subsection-header">Группировка признаков по категориям</div>', unsafe_allow_html=True)
@@ -2262,7 +2236,7 @@ elif page == "Прогнозирование":
             st.success("Прогноз выполнен на основе реальной статистики и корректировок")
             
             # ИНФОРМАЦИЯ ОБ УНИВЕРСИТЕТЕ
-            st.markdown(f'<div class="subsection-header">Университет: {university}</div>', unsafe_allow_html=True)
+            st.markdown('<div class="subsection-header">Университет: {university}</div>', unsafe_allow_html=True)
             st.info(f"**{uni_description}** • Уровень: {prestige_level.upper()}")
             
             # РЕЗУЛЬТАТЫ ПРОГНОЗИРОВАНИЯ
@@ -2405,15 +2379,16 @@ elif page == "Прогнозирование":
             st.markdown('<div class="info-box">', unsafe_allow_html=True)
             for i, rec in enumerate(recommendations, 1):
                 st.write(f"{i}. {rec}")
+            st.markdown('</div>', unsafe_allow_html=True)
             
             # ИНФОРМАЦИЯ О СТАТИСТИКЕ
             st.markdown("---")
             st.markdown("""
-            <div style="background-color: #e8eaf6; padding: 15px; border-radius: 10px; border-left: 4px solid #1a237e;">
-                <strong style="color: #2c3e50;">Источник данных:</strong> Прогноз основан на статистике с 
-                <a href="https://stats.rabota.by" target="_blank" style="color: #1a237e;">rabota.by</a>, 
+            <div style="background-color: #f0f8ff; padding: 15px; border-radius: 10px; border-left: 4px solid #1a237e;">
+                <strong>Источник данных:</strong> Прогноз основан на статистике с 
+                <a href="https://stats.rabota.by" target="_blank">rabota.by</a>, 
                 официальной статистике Беларуси и реальных данных о выпускниках.
-                <br><small><i style="color: #5f6368;">• Учтены региональные различия • Престиж университета • Отраслевые тренды до 2035 года</i></small>
+                <br><small><i>• Учтены региональные различия • Престиж университета • Отраслевые тренды до 2035 года</i></small>
             </div>
             """, unsafe_allow_html=True)
                 
@@ -2459,6 +2434,7 @@ elif page == "Рекомендации":
     st.markdown('<div class="info-box">', unsafe_allow_html=True)
     for insight in insights:
         st.write(insight)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # Рекомендации для университетов
     st.markdown('<div class="subsection-header">Рекомендации для университетов</div>', unsafe_allow_html=True)
@@ -2498,6 +2474,7 @@ elif page == "Рекомендации":
             st.markdown('<div class="info-box">', unsafe_allow_html=True)
             for item in rec_category["items"]:
                 st.write(f"• {item}")
+            st.markdown('</div>', unsafe_allow_html=True)
     
     # Рекомендации для студентов
     st.markdown('<div class="subsection-header">Рекомендации для студентов</div>', unsafe_allow_html=True)
@@ -2514,6 +2491,7 @@ elif page == "Рекомендации":
     st.markdown('<div class="info-box">', unsafe_allow_html=True)
     for rec in student_recommendations:
         st.write(rec)
+    st.markdown('</div>', unsafe_allow_html=True)
     
     # План действий
     st.markdown('<div class="subsection-header">План действий на ближайший год</div>', unsafe_allow_html=True)
@@ -2528,7 +2506,7 @@ elif page == "Рекомендации":
     
     st.table(pd.DataFrame(action_plan))
 
-# Футер с градиентом
+# Футер
 st.markdown("""
 <div class="footer">
     <h3>Аналитическая система трудоустройства выпускников Беларуси</h3>
@@ -2536,12 +2514,12 @@ st.markdown("""
     <div style="margin-top: 1rem;">
         <small>
             На основе реальных данных с HH API • Машинное обучение • Аналитика в реальном времени<br>
-            Система разработана для поддержки карьерного развития выпускников и оптимизации работы университетов <br>
-            Если возникла проблема, например данные не загружаются, то свяжитесь с владельцем проекта: demeshkodd@mail.ru
+            Система разработана для поддержки карьерного развития выпускников и оптимизации работы университетов
         </small>
     </div>
-    <div style="margin-top: 1rem; color: rgba(255, 255, 255, 0.9);">
+    <div style="margin-top: 1rem; color: #e0e0e0;">
         <small>© 2025 Аналитическая система трудоустройства. Все права защищены.</small>
     </div>
 </div>
+
 """, unsafe_allow_html=True)
