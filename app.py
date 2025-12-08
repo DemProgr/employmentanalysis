@@ -59,10 +59,10 @@ st.markdown("""
         background-color: #f8f9fa;
     }
     
-    /* Единый шрифт для всего приложения */
-    * {
-        font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
-    }
+    # /* Единый шрифт для всего приложения */
+    # * {
+    #     font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+    # }
     
     /* Заголовки */
     .main-header {
@@ -2545,3 +2545,4 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
