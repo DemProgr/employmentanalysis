@@ -2051,32 +2051,32 @@ elif page == "Прогнозирование":
         # ОБНОВЛЕНО НА ОСНОВЕ СТАТИСТИКИ rabota.by
         industry_growth_rates = {
             'ИТ': {
-                'salary_growth': 0.11,  # Высокий рост в IT
+                'salary_growth': 0.09,  # Высокий рост в IT
                 'employment_growth': 0.04,
                 'premium_bonus': 0.15   # Дополнительный бонус для престижных вузов
             },
             'Медицина': {
-                'salary_growth': 0.09,
+                'salary_growth': 0.07,
                 'employment_growth': 0.03,
                 'premium_bonus': 0.10
             },
             'Инженерия': {
-                'salary_growth': 0.07,
+                'salary_growth': 0.06,
                 'employment_growth': 0.025,
                 'premium_bonus': 0.08
             },
             'Экономика': {
-                'salary_growth': 0.06,
+                'salary_growth': 0.05,
                 'employment_growth': 0.02,
                 'premium_bonus': 0.07
             },
             'Педагогика': {
-                'salary_growth': 0.14,  # Самый высокий рост из-за дефицита
+                'salary_growth': 0.07,  # Самый высокий рост из-за дефицита
                 'employment_growth': 0.06,
                 'premium_bonus': 0.12
             },
             'Юриспруденция': {
-                'salary_growth': 0.065,
+                'salary_growth': 0.045,
                 'employment_growth': 0.022,
                 'premium_bonus': 0.08
             }
@@ -2090,15 +2090,15 @@ elif page == "Прогнозирование":
         
         # УЧЕТ ПРЕСТИЖА УНИВЕРСИТЕТА (данные из статистики rabota.by)
         prestigious_universities = {
-            'БГУ': 1.25,    # Высший уровень
-            'БГУИР': 1.30,  # Лучший для IT
-            'БГМУ': 1.20,   # Лучший для медицины
-            'БНТУ': 1.15,
-            'БГЭУ': 1.12,
-            'БГПУ': 1.18,   # Лучший для педагогики
-            'ГрГУ': 1.05,
-            'ВГУ': 1.03,
-            'ГГТУ': 1.02,
+            'БГУ': 1.11,    # Высший уровень
+            'БГУИР': 1.11,  # Лучший для IT
+            'БГМУ': 1.10,   # Лучший для медицины
+            'БНТУ': 1.09,
+            'БГЭУ': 1.07,
+            'БГПУ': 1.04,   # Лучший для педагогики
+            'ГрГУ': 1.00,
+            'ВГУ': 1.00,
+            'ГГТУ': 1.01,
             'ПГУ': 1.00
         }
         
@@ -2107,11 +2107,11 @@ elif page == "Прогнозирование":
         if faculty == 'Педагогика':
             # Педагогика: ускоренный рост из-за дефицита
             salary_multiplier = (1 + growth['salary_growth']) ** years_ahead
-            salary_multiplier *= (1 + (prestige_factor - 1) * 0.8) ** years_ahead
+            salary_multiplier *= (1 + (prestige_factor - 1) * 0.5) ** years_ahead
         elif faculty == 'ИТ' and years_ahead > 3:
             # ИТ: быстрый рост первые 3 года, затем стабильный
             early_growth = (1 + growth['salary_growth']) ** min(years_ahead, 3)
-            late_growth = (1 + growth['salary_growth'] * 0.8) ** max(years_ahead - 3, 0)
+            late_growth = (1 + growth['salary_growth'] * 0.7) ** max(years_ahead - 3, 0)
             salary_multiplier = early_growth * late_growth
             salary_multiplier *= (1 + (prestige_factor - 1) * 1.0) ** years_ahead
         else:
@@ -2135,55 +2135,55 @@ elif page == "Прогнозирование":
         # РЕАЛЬНЫЕ ДАННЫЕ НА ОСНОВЕ СТАТИСТИКИ rabota.by
         university_corrections = {
             'БГУ': {
-                'employment_mult': 1.18, 
-                'salary_mult': 1.22, 
+                'employment_mult': 1.13, 
+                'salary_mult': 1.14, 
                 'prestige': 'высший',
                 'description': 'Флагманский университет Беларуси'
             },
             'БГУИР': {
-                'employment_mult': 1.22, 
-                'salary_mult': 1.28, 
+                'employment_mult': 1.13, 
+                'salary_mult': 1.14, 
                 'prestige': 'высший',
                 'description': 'Лидер IT-образования в стране'
             },
             'БГМУ': {
-                'employment_mult': 1.20, 
-                'salary_mult': 1.20, 
+                'employment_mult': 1.15, 
+                'salary_mult': 1.13, 
                 'prestige': 'высший',
                 'description': 'Ведущий медицинский университет'
             },
             'БНТУ': {
-                'employment_mult': 1.14, 
-                'salary_mult': 1.16, 
+                'employment_mult': 1.09, 
+                'salary_mult': 1.13, 
                 'prestige': 'высокий',
                 'description': 'Лучший технический университет'
             },
             'БГЭУ': {
-                'employment_mult': 1.12, 
-                'salary_mult': 1.14, 
+                'employment_mult': 1.07, 
+                'salary_mult': 1.09, 
                 'prestige': 'высокий',
                 'description': 'Ведущий экономический университет'
             },
             'БГПУ': {
-                'employment_mult': 1.25, 
+                'employment_mult': 1.20, 
                 'salary_mult': 1.12, 
                 'prestige': 'высокий',
                 'description': 'Лучший педагогический университет'
             },
             'ГрГУ': {
-                'employment_mult': 1.06, 
-                'salary_mult': 1.06, 
+                'employment_mult': 1.01, 
+                'salary_mult': 1.00, 
                 'prestige': 'средний',
                 'description': 'Крупный региональный университет'
             },
             'ВГУ': {
-                'employment_mult': 1.04, 
+                'employment_mult': 1.00, 
                 'salary_mult': 1.04, 
                 'prestige': 'средний',
                 'description': 'Университет с сильными традициями'
             },
             'ГГТУ': {
-                'employment_mult': 1.03, 
+                'employment_mult': 1.00, 
                 'salary_mult': 1.03, 
                 'prestige': 'средний',
                 'description': 'Технический университет в Гомеле'
@@ -2205,12 +2205,12 @@ elif page == "Прогнозирование":
         
         # ДОПОЛНИТЕЛЬНЫЕ КОРРЕКЦИИ ДЛЯ СПЕЦИФИЧЕСКИХ ФАКУЛЬТЕТОВ
         special_combinations = {
-            ('БГУИР', 'ИТ'): {'employment_mult': 1.28, 'salary_mult': 1.32},
-            ('БГМУ', 'Медицина'): {'employment_mult': 1.25, 'salary_mult': 1.22},
-            ('БГПУ', 'Педагогика'): {'employment_mult': 1.30, 'salary_mult': 1.15},
-            ('БГЭУ', 'Экономика'): {'employment_mult': 1.16, 'salary_mult': 1.20},
-            ('БНТУ', 'Инженерия'): {'employment_mult': 1.18, 'salary_mult': 1.20},
-            ('БГУ', 'Юриспруденция'): {'employment_mult': 1.15, 'salary_mult': 1.18},
+            ('БГУИР', 'ИТ'): {'employment_mult': 1.13, 'salary_mult': 1.09},
+            ('БГМУ', 'Медицина'): {'employment_mult': 1.11, 'salary_mult': 1.01},
+            ('БГПУ', 'Педагогика'): {'employment_mult': 1.10, 'salary_mult': 1.00},
+            ('БГЭУ', 'Экономика'): {'employment_mult': 1.11, 'salary_mult': 1.01},
+            ('БНТУ', 'Инженерия'): {'employment_mult': 1.11, 'salary_mult': 1.03},
+            ('БГУ', 'Юриспруденция'): {'employment_mult': 1.13, 'salary_mult': 1.09},
         }
         
         special_key = (university, faculty)
@@ -2411,7 +2411,7 @@ elif page == "Прогнозирование":
             base_employment_rates = {
                 'ИТ': 0.88,
                 'Медицина': 0.92,
-                'Инженерия': 0.85,
+                'Инженерия': 0.84,
                 'Экономика': 0.82,
                 'Педагогика': 0.95,  # Высокий из-за дефицита
                 'Юриспруденция': 0.80
@@ -2419,7 +2419,7 @@ elif page == "Прогнозирование":
             
             # БАЗОВЫЕ ЗАРПЛАТЫ ПО ФАКУЛЬТЕТУ (BYN)
             base_salaries = {
-                'ИТ': 2500,
+                'ИТ': 2600,
                 'Медицина': 2200,
                 'Инженерия': 2300,
                 'Экономика': 1900,
@@ -2434,27 +2434,27 @@ elif page == "Прогнозирование":
             # КОРРЕКЦИИ НА ОСНОВЕ ДАННЫХ СТУДЕНТА
             
             # Влияние GPA
-            gpa_factor = (gpa - 6.0) * 0.03
+            gpa_factor = (gpa - 6.0) * 0.003
             employment_prob += gpa_factor
             salary_pred += (gpa - 6.0) * 150
             
             # Влияние стажировок
-            internships_factor = internships * 0.04
+            internships_factor = internships * 0.004
             employment_prob += internships_factor
             salary_pred += internships * 200
             
             # Влияние проектов
-            projects_factor = projects * 0.02
+            projects_factor = projects * 0.002
             employment_prob += projects_factor
             salary_pred += projects * 100
             
             # Влияние сертификатов
-            certificates_factor = certificates * 0.015
+            certificates_factor = certificates * 0.0015
             employment_prob += certificates_factor
             salary_pred += certificates * 80
             
             # Влияние английского
-            english_factors = {'A1': 0.0, 'A2': 0.01, 'B1': 0.03, 'B2': 0.05, 'C1': 0.07, 'C2': 0.09}
+            english_factors = {'A1': 0.0, 'A2': 0.0006, 'B1': 0.009, 'B2': 0.001, 'C1': 0.02, 'C2': 0.03}
             employment_prob += english_factors.get(english_level, 0.03)
             salary_pred += english_factors.get(english_level, 0.03) * 300
             
@@ -2764,6 +2764,7 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
