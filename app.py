@@ -2107,7 +2107,7 @@ elif page == "Прогнозирование":
         if faculty == 'Педагогика':
             # Педагогика: ускоренный рост из-за дефицита
             salary_multiplier = (1 + growth['salary_growth']) ** years_ahead
-            salary_multiplier *= (1 + (prestige_factor - 1) * 0.5) ** years_ahead
+            salary_multiplier *= (1 + (prestige_factor - 1) * 0.3) ** years_ahead
         elif faculty == 'ИТ' and years_ahead > 3:
             # ИТ: быстрый рост первые 3 года, затем стабильный
             early_growth = (1 + growth['salary_growth']) ** min(years_ahead, 3)
@@ -2136,61 +2136,61 @@ elif page == "Прогнозирование":
         university_corrections = {
             'БГУ': {
                 'employment_mult': 1.13, 
-                'salary_mult': 1.14, 
+                'salary_mult': 1.10, 
                 'prestige': 'высший',
                 'description': 'Флагманский университет Беларуси'
             },
             'БГУИР': {
                 'employment_mult': 1.13, 
-                'salary_mult': 1.14, 
+                'salary_mult': 1.10, 
                 'prestige': 'высший',
                 'description': 'Лидер IT-образования в стране'
             },
             'БГМУ': {
                 'employment_mult': 1.15, 
-                'salary_mult': 1.13, 
+                'salary_mult': 1.09, 
                 'prestige': 'высший',
                 'description': 'Ведущий медицинский университет'
             },
             'БНТУ': {
                 'employment_mult': 1.09, 
-                'salary_mult': 1.13, 
+                'salary_mult': 1.09, 
                 'prestige': 'высокий',
                 'description': 'Лучший технический университет'
             },
             'БГЭУ': {
                 'employment_mult': 1.07, 
-                'salary_mult': 1.09, 
+                'salary_mult': 1.05, 
                 'prestige': 'высокий',
                 'description': 'Ведущий экономический университет'
             },
             'БГПУ': {
                 'employment_mult': 1.20, 
-                'salary_mult': 1.12, 
+                'salary_mult': 1.08, 
                 'prestige': 'высокий',
                 'description': 'Лучший педагогический университет'
             },
             'ГрГУ': {
                 'employment_mult': 1.01, 
-                'salary_mult': 1.00, 
+                'salary_mult': 0.96, 
                 'prestige': 'средний',
                 'description': 'Крупный региональный университет'
             },
             'ВГУ': {
                 'employment_mult': 1.00, 
-                'salary_mult': 1.04, 
+                'salary_mult': 0.98, 
                 'prestige': 'средний',
                 'description': 'Университет с сильными традициями'
             },
             'ГГТУ': {
                 'employment_mult': 1.00, 
-                'salary_mult': 1.03, 
+                'salary_mult': 0.98, 
                 'prestige': 'средний',
                 'description': 'Технический университет в Гомеле'
             },
             'ПГУ': {
                 'employment_mult': 1.00, 
-                'salary_mult': 1.00, 
+                'salary_mult': 0.96, 
                 'prestige': 'базовый',
                 'description': 'Региональный университет'
             }
@@ -2198,19 +2198,19 @@ elif page == "Прогнозирование":
         
         correction = university_corrections.get(university, {
             'employment_mult': 1.0, 
-            'salary_mult': 1.0, 
+            'salary_mult': 0.95, 
             'prestige': 'базовый',
             'description': 'Университет'
         })
         
         # ДОПОЛНИТЕЛЬНЫЕ КОРРЕКЦИИ ДЛЯ СПЕЦИФИЧЕСКИХ ФАКУЛЬТЕТОВ
         special_combinations = {
-            ('БГУИР', 'ИТ'): {'employment_mult': 1.13, 'salary_mult': 1.09},
-            ('БГМУ', 'Медицина'): {'employment_mult': 1.11, 'salary_mult': 1.01},
-            ('БГПУ', 'Педагогика'): {'employment_mult': 1.10, 'salary_mult': 1.00},
-            ('БГЭУ', 'Экономика'): {'employment_mult': 1.11, 'salary_mult': 1.01},
-            ('БНТУ', 'Инженерия'): {'employment_mult': 1.11, 'salary_mult': 1.03},
-            ('БГУ', 'Юриспруденция'): {'employment_mult': 1.13, 'salary_mult': 1.09},
+            ('БГУИР', 'ИТ'): {'employment_mult': 1.10, 'salary_mult': 1.09},
+            ('БГМУ', 'Медицина'): {'employment_mult': 1.08, 'salary_mult': 1.01},
+            ('БГПУ', 'Педагогика'): {'employment_mult': 1.07, 'salary_mult': 1.00},
+            ('БГЭУ', 'Экономика'): {'employment_mult': 1.08, 'salary_mult': 1.01},
+            ('БНТУ', 'Инженерия'): {'employment_mult': 1.08, 'salary_mult': 1.03},
+            ('БГУ', 'Юриспруденция'): {'employment_mult': 1.09, 'salary_mult': 1.09},
         }
         
         special_key = (university, faculty)
@@ -2764,6 +2764,7 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
