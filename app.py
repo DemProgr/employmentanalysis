@@ -834,7 +834,9 @@ elif page == "Анализ вакансий":
         """, unsafe_allow_html=True)
     
     with col2:
-        categories_count = len(vacancies_df['category'].unique()) if 'category' in vacancies_df.columns else 0
+        # Исключаем категорию "Другое" из подсчета
+        categories_without_other = [cat for cat in vacancies_df['category'].unique() if str(cat) != 'Другое'] if 'category' in vacancies_df.columns else []
+        categories_count = len(categories_without_other)
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-value">{categories_count}</div>
@@ -843,7 +845,9 @@ elif page == "Анализ вакансий":
         """, unsafe_allow_html=True)
     
     with col3:
-        avg_salary = vacancies_df['salary_avg_byn'].mean() if 'salary_avg_byn' in vacancies_df.columns else 0
+        # Исключаем категорию "Другое" из расчета средней зарплаты
+        valid_salaries = vacancies_df[vacancies_df['category'] != 'Другое']['salary_avg_byn'] if 'category' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns else vacancies_df['salary_avg_byn'] if 'salary_avg_byn' in vacancies_df.columns else pd.Series([0])
+        avg_salary = valid_salaries.mean() if len(valid_salaries) > 0 else 0
         st.markdown(f"""
         <div class="metric-card">
             <div class="metric-value">{avg_salary:.0f} BYN</div>
@@ -860,53 +864,268 @@ elif page == "Анализ вакансий":
         </div>
         """, unsafe_allow_html=True)
     
-    # Анализ по категориям
+    # Анализ по категориям - ИСКЛЮЧАЕМ КАТЕГОРИЮ "ДРУГОЕ"
     st.markdown('<div class="subsection-header">Анализ по категориям</div>', unsafe_allow_html=True)
     
     if 'category' in vacancies_df.columns:
-        category_analysis = vacancies_df.groupby('category').agg({
-            'id': 'count',
-            'salary_avg_byn': ['mean', 'median', 'std'],
-            'skills_count': 'mean'
-        }).round(2)
+        # Фильтруем данные, исключая категорию "Другое"
+        filtered_vacancies = vacancies_df[vacancies_df['category'] != 'Другое']
         
-        # Выравниваем колонки
-        category_analysis.columns = ['Количество', 'Зарплата средняя', 'Зарплата медиана', 'Зарплата ст.откл.', 'Навыки среднее']
-        st.dataframe(category_analysis.style.background_gradient(cmap='Blues'), use_container_width=True)
+        if len(filtered_vacancies) > 0:
+            category_analysis = filtered_vacancies.groupby('category').agg({
+                'id': 'count',
+                'salary_avg_byn': ['mean', 'median', 'std'],
+                'skills_count': 'mean'
+            }).round(2)
+            
+            # Выравниваем колонки
+            category_analysis.columns = ['Количество', 'Зарплата средняя', 'Зарплата медиана', 'Зарплата ст.откл.', 'Навыки среднее']
+            
+            # Сортируем по количеству вакансий
+            category_analysis = category_analysis.sort_values('Количество', ascending=False)
+            
+            st.dataframe(category_analysis.style.background_gradient(cmap='Blues'), use_container_width=True)
+        else:
+            st.info("Нет данных для анализа (после исключения категории 'Другое')")
     
     # Визуализации вакансий
     col1, col2 = st.columns(2)
     
     with col1:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
         st.markdown("**Зарплаты по категориям**")
         if 'category' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns:
-            salary_by_category = vacancies_df.groupby('category')['salary_avg_byn'].mean().sort_values(ascending=False)
-            fig, ax = plt.subplots(figsize=(10, 6))
-            if len(salary_by_category) > 0:
-                bars = ax.bar(salary_by_category.index, salary_by_category.values,
-                             color=plt.cm.viridis(np.linspace(0, 1, len(salary_by_category))))
-                ax.set_title('Средние зарплаты по категориям (BYN)', fontweight='bold')
-                ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
-                ax.tick_params(axis='x', rotation=45)
+            # Исключаем категорию "Другое"
+            filtered_vacancies = vacancies_df[vacancies_df['category'] != 'Другое']
+            
+            if len(filtered_vacancies) > 0:
+                salary_by_category = filtered_vacancies.groupby('category')['salary_avg_byn'].mean().sort_values(ascending=False)
                 
-                for bar, value in zip(bars, salary_by_category.values):
-                    height = bar.get_height()
-                    ax.text(bar.get_x() + bar.get_width()/2., height + 20,
-                           f'{value:.0f}', ha='center', va='bottom', fontweight='medium')
+                # Создаем график только если есть данные
+                if len(salary_by_category) > 0:
+                    fig, ax = plt.subplots(figsize=(10, 6))
+                    colors = plt.cm.viridis(np.linspace(0, 1, len(salary_by_category)))
+                    
+                    bars = ax.bar(salary_by_category.index, salary_by_category.values,
+                                 color=colors, alpha=0.9)
+                    ax.set_title('Средние зарплаты по категориям (BYN)', fontweight='bold', fontsize=14)
+                    ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
+                    ax.tick_params(axis='x', rotation=45)
+                    
+                    # Добавляем значения на столбцы
+                    for bar, value in zip(bars, salary_by_category.values):
+                        height = bar.get_height()
+                        ax.text(bar.get_x() + bar.get_width()/2., height + 20,
+                               f'{value:.0f}', ha='center', va='bottom', fontweight='bold')
+                    
+                    ax.grid(True, alpha=0.3, axis='y')
+                    plt.tight_layout()
+                    st.pyplot(fig)
+                else:
+                    st.info("Нет данных для построения графика зарплат")
+            else:
+                st.info("Нет данных после исключения категории 'Другое'")
+        else:
+            st.info("Отсутствуют необходимые колонки для построения графика")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="plot-container">', unsafe_allow_html=True)
+        st.markdown("**Требуемый опыт работы**")
+        if 'experience' in vacancies_df.columns:
+            # Стандартизируем значения опыта работы
+            experience_mapping = {
+                'Без опыта': 'без опыта',
+                'От 1 года до 3 лет': 'от 1 до 3 лет',
+                'От 3 до 6 лет': 'от 3 до 6 лет',
+                'Более 6 лет': 'от 6 лет',
+                'Нет опыта': 'без опыта',
+                'от 1 до 3 лет': 'от 1 до 3 лет',
+                'от 3 до 6 лет': 'от 3 до 6 лет',
+                'от 6 лет': 'от 6 лет'
+            }
+            
+            # Создаем копию данных для стандартизации
+            experience_data = vacancies_df['experience'].copy()
+            
+            # Применяем стандартизацию
+            for old_value, new_value in experience_mapping.items():
+                experience_data = experience_data.replace(old_value, new_value)
+            
+            # Группируем только стандартные категории
+            standard_categories = ['без опыта', 'от 1 до 3 лет', 'от 3 до 6 лет', 'от 6 лет']
+            
+            # Создаем словарь для подсчета
+            experience_counts = {category: 0 for category in standard_categories}
+            
+            # Подсчитываем категории
+            for exp in experience_data:
+                exp_str = str(exp).lower()
+                found = False
+                for category in standard_categories:
+                    if category in exp_str:
+                        experience_counts[category] += 1
+                        found = True
+                        break
+                if not found and pd.notna(exp):
+                    # Если опыт не соответствует стандартным категориям, относим к "без опыта"
+                    experience_counts['без опыта'] += 1
+            
+            # Создаем Series для визуализации
+            experience_series = pd.Series(experience_counts)
+            
+            # Исключаем нулевые значения
+            experience_series = experience_series[experience_series > 0]
+            
+            if len(experience_series) > 0:
+                fig, ax = plt.subplots(figsize=(8, 8))
+                
+                # Цвета для каждой категории
+                colors = ['#1a237e', '#283593', '#5c6bc0', '#9fa8da']
+                
+                # Порядок для отображения
+                order = ['без опыта', 'от 1 до 3 лет', 'от 3 до 6 лет', 'от 6 лет']
+                ordered_data = pd.Series({cat: experience_series.get(cat, 0) for cat in order if cat in experience_series.index})
+                
+                if len(ordered_data) > 0:
+                    wedges, texts, autotexts = ax.pie(ordered_data.values, 
+                                                     labels=ordered_data.index, 
+                                                     autopct='%1.1f%%', 
+                                                     startangle=90,
+                                                     colors=colors[:len(ordered_data)],
+                                                     textprops={'fontsize': 11, 'fontweight': 'medium'})
+                    
+                    # Улучшаем отображение процентов
+                    for autotext in autotexts:
+                        autotext.set_color('white')
+                        autotext.set_fontweight('bold')
+                        autotext.set_fontsize(10)
+                    
+                    ax.set_title('Требования к опыту работы', fontweight='bold', fontsize=14, pad=20)
+                    
+                    # Добавляем легенду
+                    ax.legend(wedges, ordered_data.index,
+                             title="Категории опыта",
+                             loc="center left",
+                             bbox_to_anchor=(1, 0, 0.5, 1),
+                             fontsize=10)
+                    
+                    st.pyplot(fig)
+                else:
+                    st.info("Нет данных о требованиях к опыту работы")
+            else:
+                st.info("Нет данных о требованиях к опыту работы")
+        else:
+            st.info("Отсутствует колонка 'experience' в данных")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Дополнительная статистика по опыту работы
+    st.markdown('<div class="subsection-header">Статистика по опыту работы</div>', unsafe_allow_html=True)
+    
+    if 'experience' in vacancies_df.columns:
+        col1, col2, col3, col4 = st.columns(4)
+        
+        # Считаем количество вакансий по каждой стандартной категории
+        experience_stats = {}
+        
+        with col1:
+            без_опыта = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)])
+            st.markdown(f"""
+            <div class="metric-card" style="border-left-color: #1a237e;">
+                <div class="metric-value">{без_опыта:,}</div>
+                <div class="metric-label">Без опыта</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            от_1_до_3 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)])
+            st.markdown(f"""
+            <div class="metric-card" style="border-left-color: #283593;">
+                <div class="metric-value">{от_1_до_3:,}</div>
+                <div class="metric-label">От 1 до 3 лет</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col3:
+            от_3_до_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)])
+            st.markdown(f"""
+            <div class="metric-card" style="border-left-color: #5c6bc0;">
+                <div class="metric-value">{от_3_до_6:,}</div>
+                <div class="metric-label">От 3 до 6 лет</div>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col4:
+            от_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)])
+            st.markdown(f"""
+            <div class="metric-card" style="border-left-color: #9fa8da;">
+                <div class="metric-value">{от_6:,}</div>
+                <div class="metric-label">От 6 лет</div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Распределение зарплат по опыту работы
+    st.markdown('<div class="subsection-header">Зарплаты по опыту работы</div>', unsafe_allow_html=True)
+    
+    if 'experience' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns:
+        # Группируем зарплаты по стандартизированным категориям опыта
+        salary_by_experience = {}
+        
+        # Без опыта
+        без_опыта_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)]
+        if len(без_опыта_вак) > 0:
+            salary_by_experience['без опыта'] = без_опыта_вак['salary_avg_byn'].mean()
+        
+        # От 1 до 3 лет
+        от_1_до_3_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)]
+        if len(от_1_до_3_вак) > 0:
+            salary_by_experience['от 1 до 3 лет'] = от_1_до_3_вак['salary_avg_byn'].mean()
+        
+        # От 3 до 6 лет
+        от_3_до_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)]
+        if len(от_3_до_6_вак) > 0:
+            salary_by_experience['от 3 до 6 лет'] = от_3_до_6_вак['salary_avg_byn'].mean()
+        
+        # От 6 лет
+        от_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)]
+        if len(от_6_вак) > 0:
+            salary_by_experience['от 6 лет'] = от_6_вак['salary_avg_byn'].mean()
+        
+        if salary_by_experience:
+            # Создаем DataFrame для визуализации
+            salary_df = pd.DataFrame.from_dict(salary_by_experience, orient='index', columns=['Средняя зарплата (BYN)'])
+            salary_df = salary_df.sort_values('Средняя зарплата (BYN)', ascending=False)
+            
+            # Визуализируем
+            fig, ax = plt.subplots(figsize=(10, 6))
+            colors = ['#1a237e', '#283593', '#5c6bc0', '#9fa8da']
+            bars = ax.bar(range(len(salary_df)), salary_df['Средняя зарплата (BYN)'], 
+                         color=colors[:len(salary_df)], alpha=0.9)
+            
+            ax.set_title('Средние зарплаты по опыту работы', fontweight='bold', fontsize=14)
+            ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
+            ax.set_xticks(range(len(salary_df)))
+            ax.set_xticklabels(salary_df.index, rotation=45, fontweight='medium')
+            ax.grid(True, alpha=0.3, axis='y')
+            
+            # Добавляем значения на столбцы
+            for bar, value in zip(bars, salary_df['Средняя зарплата (BYN)']):
+                height = bar.get_height()
+                ax.text(bar.get_x() + bar.get_width()/2., height + 20,
+                       f'{value:.0f} BYN', ha='center', va='bottom', fontweight='bold')
             
             plt.tight_layout()
             st.pyplot(fig)
+        else:
+            st.info("Нет данных о зарплатах по опыту работы")
     
-    with col2:
-        st.markdown("**Требуемый опыт работы**")
-        if 'experience' in vacancies_df.columns:
-            experience_counts = vacancies_df['experience'].value_counts()
-            fig, ax = plt.subplots(figsize=(8, 8))
-            if len(experience_counts) > 0:
-                ax.pie(experience_counts.values, labels=experience_counts.index, autopct='%1.1f%%', startangle=90,
-                      colors=plt.cm.Set3(np.linspace(0, 1, len(experience_counts))))
-                ax.set_title('Требования к опыту работы', fontweight='bold')
-            st.pyplot(fig)
+    # Информационное сообщение об изменениях
+    st.markdown("""
+    <div class="info-box">
+        <strong>Примечание:</strong> В данном анализе исключена категория "Другое" из всех расчетов и визуализаций для повышения точности анализа.
+        <br><small><i>Опыт работы стандартизирован до 4 категорий: без опыта, от 1 до 3 лет, от 3 до 6 лет, от 6 лет.</i></small>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ДОБАВЛЕННЫЕ СТРАНИЦЫ
 elif page == "Тренды":
@@ -2545,4 +2764,5 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
