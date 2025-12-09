@@ -1020,112 +1020,112 @@ elif page == "Анализ вакансий":
         st.markdown('</div>', unsafe_allow_html=True)
     
     # Дополнительная статистика по опыту работы
-    st.markdown('<div class="subsection-header">Статистика по опыту работы</div>', unsafe_allow_html=True)
+    # st.markdown('<div class="subsection-header">Статистика по опыту работы</div>', unsafe_allow_html=True)
     
-    if 'experience' in vacancies_df.columns:
-        col1, col2, col3, col4 = st.columns(4)
+    # if 'experience' in vacancies_df.columns:
+    #     col1, col2, col3, col4 = st.columns(4)
         
-        # Считаем количество вакансий по каждой стандартной категории
-        experience_stats = {}
+    #     # Считаем количество вакансий по каждой стандартной категории
+    #     experience_stats = {}
         
-        with col1:
-            без_опыта = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)])
-            st.markdown(f"""
-            <div class="metric-card" style="border-left-color: #1a237e;">
-                <div class="metric-value">{без_опыта:,}</div>
-                <div class="metric-label">Без опыта</div>
-            </div>
-            """, unsafe_allow_html=True)
+    #     with col1:
+    #         без_опыта = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)])
+    #         st.markdown(f"""
+    #         <div class="metric-card" style="border-left-color: #1a237e;">
+    #             <div class="metric-value">{без_опыта:,}</div>
+    #             <div class="metric-label">Без опыта</div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
         
-        with col2:
-            от_1_до_3 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)])
-            st.markdown(f"""
-            <div class="metric-card" style="border-left-color: #283593;">
-                <div class="metric-value">{от_1_до_3:,}</div>
-                <div class="metric-label">От 1 до 3 лет</div>
-            </div>
-            """, unsafe_allow_html=True)
+    #     with col2:
+    #         от_1_до_3 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)])
+    #         st.markdown(f"""
+    #         <div class="metric-card" style="border-left-color: #283593;">
+    #             <div class="metric-value">{от_1_до_3:,}</div>
+    #             <div class="metric-label">От 1 до 3 лет</div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
         
-        with col3:
-            от_3_до_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)])
-            st.markdown(f"""
-            <div class="metric-card" style="border-left-color: #5c6bc0;">
-                <div class="metric-value">{от_3_до_6:,}</div>
-                <div class="metric-label">От 3 до 6 лет</div>
-            </div>
-            """, unsafe_allow_html=True)
+    #     with col3:
+    #         от_3_до_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)])
+    #         st.markdown(f"""
+    #         <div class="metric-card" style="border-left-color: #5c6bc0;">
+    #             <div class="metric-value">{от_3_до_6:,}</div>
+    #             <div class="metric-label">От 3 до 6 лет</div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
         
-        with col4:
-            от_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)])
-            st.markdown(f"""
-            <div class="metric-card" style="border-left-color: #9fa8da;">
-                <div class="metric-value">{от_6:,}</div>
-                <div class="metric-label">От 6 лет</div>
-            </div>
-            """, unsafe_allow_html=True)
+    #     with col4:
+    #         от_6 = len(vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)])
+    #         st.markdown(f"""
+    #         <div class="metric-card" style="border-left-color: #9fa8da;">
+    #             <div class="metric-value">{от_6:,}</div>
+    #             <div class="metric-label">От 6 лет</div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
     
-    # Распределение зарплат по опыту работы
-    st.markdown('<div class="subsection-header">Зарплаты по опыту работы</div>', unsafe_allow_html=True)
+    # # Распределение зарплат по опыту работы
+    # st.markdown('<div class="subsection-header">Зарплаты по опыту работы</div>', unsafe_allow_html=True)
     
-    if 'experience' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns:
-        # Группируем зарплаты по стандартизированным категориям опыта
-        salary_by_experience = {}
+    # if 'experience' in vacancies_df.columns and 'salary_avg_byn' in vacancies_df.columns:
+    #     # Группируем зарплаты по стандартизированным категориям опыта
+    #     salary_by_experience = {}
         
-        # Без опыта
-        без_опыта_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)]
-        if len(без_опыта_вак) > 0:
-            salary_by_experience['без опыта'] = без_опыта_вак['salary_avg_byn'].mean()
+    #     # Без опыта
+    #     без_опыта_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('без опыта|нет опыта', case=False, na=False)]
+    #     if len(без_опыта_вак) > 0:
+    #         salary_by_experience['без опыта'] = без_опыта_вак['salary_avg_byn'].mean()
         
-        # От 1 до 3 лет
-        от_1_до_3_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)]
-        if len(от_1_до_3_вак) > 0:
-            salary_by_experience['от 1 до 3 лет'] = от_1_до_3_вак['salary_avg_byn'].mean()
+    #     # От 1 до 3 лет
+    #     от_1_до_3_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 1 до 3|1-3|1 - 3', case=False, na=False)]
+    #     if len(от_1_до_3_вак) > 0:
+    #         salary_by_experience['от 1 до 3 лет'] = от_1_до_3_вак['salary_avg_byn'].mean()
         
-        # От 3 до 6 лет
-        от_3_до_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)]
-        if len(от_3_до_6_вак) > 0:
-            salary_by_experience['от 3 до 6 лет'] = от_3_до_6_вак['salary_avg_byn'].mean()
+    #     # От 3 до 6 лет
+    #     от_3_до_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 3 до 6|3-6|3 - 6', case=False, na=False)]
+    #     if len(от_3_до_6_вак) > 0:
+    #         salary_by_experience['от 3 до 6 лет'] = от_3_до_6_вак['salary_avg_byn'].mean()
         
-        # От 6 лет
-        от_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)]
-        if len(от_6_вак) > 0:
-            salary_by_experience['от 6 лет'] = от_6_вак['salary_avg_byn'].mean()
+    #     # От 6 лет
+    #     от_6_вак = vacancies_df[vacancies_df['experience'].astype(str).str.contains('от 6|более 6|свыше 6', case=False, na=False)]
+    #     if len(от_6_вак) > 0:
+    #         salary_by_experience['от 6 лет'] = от_6_вак['salary_avg_byn'].mean()
         
-        if salary_by_experience:
-            # Создаем DataFrame для визуализации
-            salary_df = pd.DataFrame.from_dict(salary_by_experience, orient='index', columns=['Средняя зарплата (BYN)'])
-            salary_df = salary_df.sort_values('Средняя зарплата (BYN)', ascending=False)
+    #     if salary_by_experience:
+    #         # Создаем DataFrame для визуализации
+    #         salary_df = pd.DataFrame.from_dict(salary_by_experience, orient='index', columns=['Средняя зарплата (BYN)'])
+    #         salary_df = salary_df.sort_values('Средняя зарплата (BYN)', ascending=False)
             
-            # Визуализируем
-            fig, ax = plt.subplots(figsize=(10, 6))
-            colors = ['#1a237e', '#283593', '#5c6bc0', '#9fa8da']
-            bars = ax.bar(range(len(salary_df)), salary_df['Средняя зарплата (BYN)'], 
-                         color=colors[:len(salary_df)], alpha=0.9)
+    #         # Визуализируем
+    #         fig, ax = plt.subplots(figsize=(10, 6))
+    #         colors = ['#1a237e', '#283593', '#5c6bc0', '#9fa8da']
+    #         bars = ax.bar(range(len(salary_df)), salary_df['Средняя зарплата (BYN)'], 
+    #                      color=colors[:len(salary_df)], alpha=0.9)
             
-            ax.set_title('Средние зарплаты по опыту работы', fontweight='bold', fontsize=14)
-            ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
-            ax.set_xticks(range(len(salary_df)))
-            ax.set_xticklabels(salary_df.index, rotation=45, fontweight='medium')
-            ax.grid(True, alpha=0.3, axis='y')
+    #         ax.set_title('Средние зарплаты по опыту работы', fontweight='bold', fontsize=14)
+    #         ax.set_ylabel('Зарплата (BYN)', fontweight='medium')
+    #         ax.set_xticks(range(len(salary_df)))
+    #         ax.set_xticklabels(salary_df.index, rotation=45, fontweight='medium')
+    #         ax.grid(True, alpha=0.3, axis='y')
             
-            # Добавляем значения на столбцы
-            for bar, value in zip(bars, salary_df['Средняя зарплата (BYN)']):
-                height = bar.get_height()
-                ax.text(bar.get_x() + bar.get_width()/2., height + 20,
-                       f'{value:.0f} BYN', ha='center', va='bottom', fontweight='bold')
+    #         # Добавляем значения на столбцы
+    #         for bar, value in zip(bars, salary_df['Средняя зарплата (BYN)']):
+    #             height = bar.get_height()
+    #             ax.text(bar.get_x() + bar.get_width()/2., height + 20,
+    #                    f'{value:.0f} BYN', ha='center', va='bottom', fontweight='bold')
             
-            plt.tight_layout()
-            st.pyplot(fig)
-        else:
-            st.info("Нет данных о зарплатах по опыту работы")
+    #         plt.tight_layout()
+    #         st.pyplot(fig)
+    #     else:
+    #         st.info("Нет данных о зарплатах по опыту работы")
     
-    # Информационное сообщение об изменениях
-    st.markdown("""
-    <div class="info-box">
-        <strong>Примечание:</strong> В данном анализе исключена категория "Другое" из всех расчетов и визуализаций для повышения точности анализа.
-        <br><small><i>Опыт работы стандартизирован до 4 категорий: без опыта, от 1 до 3 лет, от 3 до 6 лет, от 6 лет.</i></small>
-    </div>
-    """, unsafe_allow_html=True)
+    # # Информационное сообщение об изменениях
+    # st.markdown("""
+    # <div class="info-box">
+    #     <strong>Примечание:</strong> В данном анализе исключена категория "Другое" из всех расчетов и визуализаций для повышения точности анализа.
+    #     <br><small><i>Опыт работы стандартизирован до 4 категорий: без опыта, от 1 до 3 лет, от 3 до 6 лет, от 6 лет.</i></small>
+    # </div>
+    # """, unsafe_allow_html=True)
 
 # ДОБАВЛЕННЫЕ СТРАНИЦЫ
 elif page == "Тренды":
@@ -2764,5 +2764,6 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 
